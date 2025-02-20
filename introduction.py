@@ -26,27 +26,27 @@ def main_bg(main_bg):
 #调用
 #main_bg('./pics/background.jpg')
 def run():
-    band = Image.open('./pics/4364b2e3f09059753188c4a3d2f79399.jpeg')
+    band = Image.open('4364b2e3f09059753188c4a3d2f79399.jpeg')
 
     st.image(band, caption='清朝时期的民乐团')
 
     text="&emsp;&emsp;说到《茉莉花》，大家第一想到的是什么？我想，最先想到的应该是这首歌："
     st.markdown(text)
-    audio_file1 = open('./audio/图兰朵茉莉花.mp3', 'rb')
+    audio_file1 = open('图兰朵茉莉花.mp3', 'rb')
     audio_bytes = audio_file1.read()
     st.audio(audio_bytes, format='audio/ogg')
 
     text="&emsp;&emsp;或许有人会提出异议，认为这是原版的《茉莉花》："
     st.markdown(text)
 
-    audio_file2 = open('./audio/江苏茉莉花.mp3', 'rb')
+    audio_file2 = open('江苏茉莉花.mp3', 'rb')
     audio_bytes = audio_file2.read()
     st.audio(audio_bytes, format='audio/ogg')
 
     text="&emsp;&emsp;但是我想，把茉莉花和这首歌联系起来的人应该少得多："
     st.markdown(text)
 
-    audio_file3 = open('./audio/东北茉莉花.mp3', 'rb')
+    audio_file3 = open('东北茉莉花.mp3', 'rb')
     audio_bytes = audio_file3.read()
     st.audio(audio_bytes, format='audio/ogg')
 
