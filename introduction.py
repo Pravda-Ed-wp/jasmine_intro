@@ -73,7 +73,7 @@ def run():
 
     """
     st.markdown(text)
-    video_file = open('图兰朵里的茉莉花.mp4', 'rb')
+    video_file = open('图兰朵里的茉莉花 .mp4', 'rb')
     video_bytes = video_file.read()
     # 使用st.video函数播放视频
     st.video(video_bytes)
