@@ -4,7 +4,7 @@ Created on Sun Jun 30 12:42:15 2024
 
 @author: 15311
 """
-
+import os
 import streamlit as st
 from PIL import Image
 import pandas as pd
@@ -105,15 +105,22 @@ def run():
     cluster_csv = "./音乐数据/audio_clusters_center.csv"
     cluster_df=pd.read_csv(cluster_csv,encoding='gbk')
     cluster_df.index = cluster_df['file_name'].str.split('_').str[-1]
+    #print(cluster_df.index)
     cluster_df=cluster_df.drop_duplicates()
     cluster_df.to_csv('cluster_df.csv', index=False)
     point_1=[]
     point_2=[]
     point_3=[]
+    ind1=[]
+    ind2=[]
     for index, row in music_data.iterrows():
         city = row['城市']
         name = row['歌曲名']
-        first_row = cluster_df[cluster_df.index == name].iloc[0]
+        if not cluster_df.empty and name in cluster_df.index:
+            first_row = cluster_df[cluster_df.index == name].iloc[0]  # 获取匹配的行
+            cluster_df = cluster_df.drop(name)  # 从cluster_df中删除这一行
+        else:
+            continue 
         type_cluster=first_row['cluster']
         polygon_series=cities_shp[cities_shp['市']==city]
         polygon = polygon_series.iloc[0]
@@ -129,17 +136,30 @@ def run():
             point = Point(x, y)
             if area.contains(point):
                 if type_cluster==0:
-                    point_1.append(point)   
+                    point_1.append(point)
+                    ind1.append(city)
+                    False
                 elif type_cluster==1:
                     point_2.append(point)
+                    ind2.append(city)
+                    False
                 else:
                     point_3.append(point)
+                    False
                 break
-
+    print(point_1,point_2,point_3)
+    pt1 =gpd.GeoSeries(point_1)
+    pt2 =gpd.GeoSeries(point_2)
+    pt1.to_file('./shp/point_1.shp'.format(os.path.basename(__file__).replace('.py','')),
+                    driver='ESRI Shapefile',
+                    encoding='utf-8')
+    pt2.to_file('./shp/point_2.shp'.format(os.path.basename(__file__).replace('.py','')),
+                    driver='ESRI Shapefile',
+                    encoding='utf-8')
     for point in point_1:
         folium.Circle(
             location=[point.y, point.x],  # 使用点的坐标
-            radius=10000,
+            radius=30000,
             color='purple',
             fill=True,
             fill_color='purple',
@@ -149,7 +169,7 @@ def run():
     for point in point_2:
         folium.Circle(
             location=[point.y, point.x],  # 使用点的坐标
-            radius=10000,
+            radius=30000,
             color='green',
             fill=True,
             fill_color='green',
@@ -159,12 +179,13 @@ def run():
     for point in point_3:
         folium.Circle(
             location=[point.y, point.x],  # 使用点的坐标
-            radius=10000,
-            color='blue',
+            radius=30000,
+            color='red',
             fill=True,
-            fill_color='blue',
+            fill_color='red',
             fill_opacity=0.6
         ).add_to(m)
+    '''
     rect_layer = folium.FeatureGroup(name='外接矩形')
     rect1 = get_minimum_bounding_rect(point_2)
     if rect1:
@@ -184,10 +205,12 @@ def run():
             weight=2,
             fill_opacity=0
         ).add_to(rect_layer)
-    rect_layer.add_to(m)
-    folium.LayerControl().add_to(m)
+    #rect_layer.add_to(m)'''
+    #folium.LayerControl().add_to(m)
     st_folium(m, width=700, height=500)
     text="""
     从上图中我们可以看出，《茉莉花》的分异主要分为南北两派，南派从南京、扬州沿水路，分别沿长江与京杭大运河传播呈现南北走向；北派则更多地呈现东西走向，集中在中原地区。两者相比之下，南派《茉莉花》的流传范围更广，版本更多，因此更为人所熟知。
     """
     st.markdown(text)
+
+run()
