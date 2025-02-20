@@ -1,4 +1,4 @@
-Flask==1.1.2
+Flask==1.1.2 
 librosa==0.10.1
 matplotlib==3.5.1
 music21==9.5.0
@@ -12,5 +12,6 @@ scikit_learn==1.0.2
 scipy==1.7.3
 seaborn==0.11.2
 selenium==4.29.0
-torch==2.3.0+cu121
-torchvision==0.18.0+cu121
+torch==2.3.0
+torchvision==0.18.0
+streamlit==1.30.0 
