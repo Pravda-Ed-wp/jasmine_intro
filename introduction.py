@@ -73,7 +73,7 @@ def run():
 
     """
     st.markdown(text)
-    video_file = open('图兰朵里的茉莉花 - 1.图兰朵(Turandot.1988).歌剧.普契尼(Puccini).多明戈(Av66546311,P1).mp4', 'rb')
+    video_file = open('图兰朵里的茉莉花.mp4', 'rb')
     video_bytes = video_file.read()
     # 使用st.video函数播放视频
     st.video(video_bytes)
