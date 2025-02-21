@@ -1,0 +1,16 @@
+{
+"type": "FeatureCollection",
+"name": "聚类2",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "FID": 0 }, "geometry": { "type": "Point", "coordinates": [ 118.834649068421086, 34.561524110401599 ] } },
+{ "type": "Feature", "properties": { "FID": 1 }, "geometry": { "type": "Point", "coordinates": [ 119.421628337326027, 33.056584770456844 ] } },
+{ "type": "Feature", "properties": { "FID": 2 }, "geometry": { "type": "Point", "coordinates": [ 120.717795658523542, 28.826167311014714 ] } },
+{ "type": "Feature", "properties": { "FID": 3 }, "geometry": { "type": "Point", "coordinates": [ 121.224264066272212, 30.148016903955231 ] } },
+{ "type": "Feature", "properties": { "FID": 4 }, "geometry": { "type": "Point", "coordinates": [ 121.891344438719841, 29.520961633136572 ] } },
+{ "type": "Feature", "properties": { "FID": 5 }, "geometry": { "type": "Point", "coordinates": [ 118.548720797486936, 32.163597493526609 ] } },
+{ "type": "Feature", "properties": { "FID": 6 }, "geometry": { "type": "Point", "coordinates": [ 112.628352855544918, 33.464924544986154 ] } },
+{ "type": "Feature", "properties": { "FID": 7 }, "geometry": { "type": "Point", "coordinates": [ 112.933726758235906, 37.685142209469113 ] } },
+{ "type": "Feature", "properties": { "FID": 8 }, "geometry": { "type": "Point", "coordinates": [ 117.333107059994347, 36.8806866263931 ] } }
+]
+}
