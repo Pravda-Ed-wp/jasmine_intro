@@ -157,6 +157,7 @@ def run():
     pt2.to_file('./shp/point_2.shp'.format(os.path.basename(__file__).replace('.py','')),
                     driver='ESRI Shapefile',
                     encoding='utf-8')'''
+    m = folium.Map(location=[30.0, 120.0], zoom_start=4)
     folium.GeoJson("聚类1.geojson", name="GeoJSON",radius=30000,
             color='green',
             fill=True).add_to(m)
