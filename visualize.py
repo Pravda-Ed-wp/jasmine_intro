@@ -158,6 +158,16 @@ def run():
                     driver='ESRI Shapefile',
                     encoding='utf-8')'''
     m = folium.Map(location=[30.0, 120.0], zoom_start=4)
+    tile1 = folium.TileLayer(
+            tiles='Esri.WorldImagery',
+            name='Esri全球影像',
+            attr='Esri全球影像')
+    tile1.add_to(m)
+    tile2 = folium.TileLayer(
+            tiles='Gaode.Normal',
+            name='高德地图',
+            attr='高德地图')
+    tile2.add_to(m)
     folium.GeoJson("聚类1.geojson", name="GeoJSON",radius=30000,
             color='green',
             fill=True).add_to(m)
