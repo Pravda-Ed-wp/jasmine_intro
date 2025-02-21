@@ -109,11 +109,11 @@ def run():
     """
     st.markdown(text)
     filepaths = [
-        "./audio/图兰朵茉莉花.mp3",
-        "./audio/江苏茉莉花.mp3",
-        "./audio/东北茉莉花.mp3",
-        "./audio/河南茉莉花.mp3",
-        "./audio/山西茉莉花.mp3"
+        "图兰朵茉莉花.mp3",
+        "江苏茉莉花.mp3",
+        "东北茉莉花.mp3",
+        "河南茉莉花.mp3",
+        "山西茉莉花.mp3"
     ]
     main_audio, main_sr = librosa.load(filepaths[0])
     music_node_show(main_audio,main_sr)
