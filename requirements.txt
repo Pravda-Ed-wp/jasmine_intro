@@ -18,3 +18,4 @@ streamlit==1.30.0
 shapely==1.8.2
 folium == 0.16.0
 geopandas == 0.13.0
+streamlit-folium==0.13.0
