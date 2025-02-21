@@ -7,6 +7,7 @@ Created on Sat Jun 29 23:37:03 2024
 
 import streamlit as st
 import importlib
+import visualize
 
 def load_module(module_name):
     try:
