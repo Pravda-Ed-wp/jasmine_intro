@@ -81,7 +81,7 @@ def run():
     得到的乐曲名称、流传地域与url如下：
     """
     st.markdown(text)
-    input_csv = "./音乐数据/song_data_all_keywords.csv"
+    input_csv = "song_data_all_keywords.csv"
     music_df=pd.read_csv(input_csv,encoding='gbk')
     with st.form("myform"):
         prv = music_df.iloc[:, 1].unique()
@@ -96,13 +96,13 @@ def run():
     music_data = music_df[music_df['音频URL'].notna()]
     text="对上述音频进行聚类，可分出三组更为接近的乐曲："
     st.markdown(text)
-    cluster = Image.open('./pics/cluster_center.png')
+    cluster = Image.open('cluster_center.png')
     st.image(cluster, caption='聚类结果', use_column_width=True)
     cities_shp=gpd.read_file('./shp/cityPolygon.shp')
     text="为直观体现其地域分布，将其在地图上进行可视化。"
     st.markdown(text)
     m=mapping(cities_shp)
-    cluster_csv = "./音乐数据/audio_clusters_center.csv"
+    cluster_csv = "audio_clusters_center.csv"
     cluster_df=pd.read_csv(cluster_csv,encoding='gbk')
     cluster_df.index = cluster_df['file_name'].str.split('_').str[-1]
     #print(cluster_df.index)
