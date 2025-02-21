@@ -98,16 +98,17 @@ def run():
     st.markdown(text)
     cluster = Image.open('cluster_center.png')
     st.image(cluster, caption='聚类结果', use_column_width=True)
-    cities_shp=gpd.read_file('./shp/cityPolygon.shp')
+    #cities_shp=gpd.read_file('./shp/cityPolygon.shp')
     text="为直观体现其地域分布，将其在地图上进行可视化。"
     st.markdown(text)
-    m=mapping(cities_shp)
+    #m=mapping(cities_shp)
     cluster_csv = "audio_clusters_center.csv"
     cluster_df=pd.read_csv(cluster_csv,encoding='gbk')
     cluster_df.index = cluster_df['file_name'].str.split('_').str[-1]
     #print(cluster_df.index)
     cluster_df=cluster_df.drop_duplicates()
     cluster_df.to_csv('cluster_df.csv', index=False)
+    '''
     point_1=[]
     point_2=[]
     point_3=[]
@@ -155,17 +156,14 @@ def run():
                     encoding='utf-8')
     pt2.to_file('./shp/point_2.shp'.format(os.path.basename(__file__).replace('.py','')),
                     driver='ESRI Shapefile',
-                    encoding='utf-8')
-    for point in point_1:
-        folium.Circle(
-            location=[point.y, point.x],  # 使用点的坐标
-            radius=30000,
-            color='purple',
-            fill=True,
-            fill_color='purple',
-            fill_opacity=0.6
-        ).add_to(m)
-        
+                    encoding='utf-8')'''
+    folium.GeoJson("聚类1.geojson", name="GeoJSON",radius=30000,
+            color='green',
+            fill=True).add_to(m)
+    folium.GeoJson("聚类2.geojson", name="GeoJSON",radius=30000,
+            color='red',
+            fill=True).add_to(m)
+    '''
     for point in point_2:
         folium.Circle(
             location=[point.y, point.x],  # 使用点的坐标
@@ -185,6 +183,7 @@ def run():
             fill_color='red',
             fill_opacity=0.6
         ).add_to(m)
+    '''
     '''
     rect_layer = folium.FeatureGroup(name='外接矩形')
     rect1 = get_minimum_bounding_rect(point_2)
