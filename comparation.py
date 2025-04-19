@@ -152,7 +152,7 @@ def run():
     st.markdown(text)
 
     input_csv = "分析结果.csv"
-    music_df=pd.read_csv(input_csv,encoding='gbk')
+    music_df=pd.read_csv(input_csv,encoding='utf-8')
     with st.form("myform"):
         st.dataframe(music_df)
 
