@@ -15,6 +15,9 @@ import geopandas as gpd
 from streamlit_folium import st_folium
 import random
 from shapely.affinity import scale, rotate
+import json
+
+
 def get_style(x):
     # 根据你的逻辑返回样式字典
     return {
