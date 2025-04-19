@@ -10,6 +10,8 @@ import numpy as np
 import pandas as pd
 from scipy.signal import correlate
 import matplotlib.pyplot as plt
+from PIL import Image
+
 def find_time_shift(audio1, audio2):
     # 计算两个音频信号的交叉相关
     cross_corr = correlate(audio1, audio2, mode='full')
@@ -153,8 +155,8 @@ def run():
 
     input_csv = "分析结果.csv"
     music_df=pd.read_csv(input_csv,encoding='utf-8')
-    with st.form("myform"):
-        st.dataframe(music_df)
+
+    st.dataframe(music_df)
 
      
     
