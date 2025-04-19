@@ -108,55 +108,7 @@ def run():
     #print(cluster_df.index)
     cluster_df=cluster_df.drop_duplicates()
     cluster_df.to_csv('cluster_df.csv', index=False)
-    '''
-    point_1=[]
-    point_2=[]
-    point_3=[]
-    ind1=[]
-    ind2=[]
-    for index, row in music_data.iterrows():
-        city = row['城市']
-        name = row['歌曲名']
-        if not cluster_df.empty and name in cluster_df.index:
-            first_row = cluster_df[cluster_df.index == name].iloc[0]  # 获取匹配的行
-            cluster_df = cluster_df.drop(name)  # 从cluster_df中删除这一行
-        else:
-            continue 
-        type_cluster=first_row['cluster']
-        polygon_series=cities_shp[cities_shp['市']==city]
-        polygon = polygon_series.iloc[0]
-        area=polygon['geometry']
-        bound=area.bounds
-        minx = bound[0]
-        miny = bound[1]
-        maxx = bound[2]
-        maxy = bound[3]
-        while True:
-            x = random.uniform(minx, maxx)
-            y = random.uniform(miny, maxy)
-            point = Point(x, y)
-            if area.contains(point):
-                if type_cluster==0:
-                    point_1.append(point)
-                    ind1.append(city)
-                    False
-                elif type_cluster==1:
-                    point_2.append(point)
-                    ind2.append(city)
-                    False
-                else:
-                    point_3.append(point)
-                    False
-                break
-    print(point_1,point_2,point_3)
-    pt1 =gpd.GeoSeries(point_1)
-    pt2 =gpd.GeoSeries(point_2)
-    pt1.to_file('./shp/point_1.shp'.format(os.path.basename(__file__).replace('.py','')),
-                    driver='ESRI Shapefile',
-                    encoding='utf-8')
-    pt2.to_file('./shp/point_2.shp'.format(os.path.basename(__file__).replace('.py','')),
-                    driver='ESRI Shapefile',
-                    encoding='utf-8')'''
+    
     m = folium.Map(location=[30.0, 120.0], zoom_start=4)
     tile1 = folium.TileLayer(
             tiles='Esri.WorldImagery',
@@ -168,55 +120,26 @@ def run():
             name='高德地图',
             attr='高德地图')
     tile2.add_to(m)
-    folium.GeoJson("聚类1.geojson", name="GeoJSON",radius=30000,
-            color='green',
-            fill=True).add_to(m)
-    folium.GeoJson("聚类2.geojson", name="GeoJSON",radius=30000,
-            color='red',
-            fill=True).add_to(m)
-    '''
-    for point in point_2:
-        folium.Circle(
-            location=[point.y, point.x],  # 使用点的坐标
-            radius=30000,
-            color='green',
-            fill=True,
-            fill_color='green',
-            fill_opacity=0.6
-        ).add_to(m)
+
+    geojson_file_1 = '聚类1.geojson'  # 第一个GeoJSON文件路径
+    geojson_file_2 = '聚类2.geojson'  # 第二个GeoJSON文件路径
+    with open(geojson_file_1, 'r') as f:
+        geojson_data_1 = json.load(f)
+
+    with open(geojson_file_2, 'r') as f:
+        geojson_data_2 = json.load(f)
+
+    for feature in geojson_data_1['features']:
+        if feature['geometry']['type'] == 'Point':
+            lon, lat = feature['geometry']['coordinates']
+            folium.Marker([lat, lon], icon=folium.Icon(color='red')).add_to(mymap)
+
+    for feature in geojson_data_2['features']:
+        if feature['geometry']['type'] == 'Point':
+            lon, lat = feature['geometry']['coordinates']
+            folium.Marker([lat, lon], icon=folium.Icon(color='blue')).add_to(mymap)
     
-    for point in point_3:
-        folium.Circle(
-            location=[point.y, point.x],  # 使用点的坐标
-            radius=30000,
-            color='red',
-            fill=True,
-            fill_color='red',
-            fill_opacity=0.6
-        ).add_to(m)
-    '''
-    '''
-    rect_layer = folium.FeatureGroup(name='外接矩形')
-    rect1 = get_minimum_bounding_rect(point_2)
-    if rect1:
-        ellipse_coords = [(y, x) for x, y in rect1.exterior.coords]
-        folium.Polygon(
-            locations=ellipse_coords,
-            color='green',
-            weight=2,
-            fill_opacity=0
-        ).add_to(rect_layer)
-    rect2 = get_minimum_bounding_rect(point_3)
-    if rect2:
-        ellipse_coords = [(y, x) for x, y in rect2.exterior.coords]
-        folium.Polygon(
-            locations=ellipse_coords,
-            color='red',
-            weight=2,
-            fill_opacity=0
-        ).add_to(rect_layer)
-    #rect_layer.add_to(m)'''
-    #folium.LayerControl().add_to(m)
+    folium.LayerControl().add_to(m)
     st_folium(m, width=700, height=500)
     text="""
     从上图中我们可以看出，《茉莉花》的分异主要分为南北两派，南派从南京、扬州沿水路，分别沿长江与京杭大运河传播呈现南北走向；北派则更多地呈现东西走向，集中在中原地区。两者相比之下，南派《茉莉花》的流传范围更广，版本更多，因此更为人所熟知。
