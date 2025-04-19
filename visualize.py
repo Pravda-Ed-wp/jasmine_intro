@@ -135,12 +135,12 @@ def run():
     for feature in geojson_data_1['features']:
         if feature['geometry']['type'] == 'Point':
             lon, lat = feature['geometry']['coordinates']
-            folium.Marker([lat, lon], icon=folium.Icon(color='red')).add_to(mymap)
+            folium.Marker([lat, lon], icon=folium.Icon(color='red')).add_to(m)
 
     for feature in geojson_data_2['features']:
         if feature['geometry']['type'] == 'Point':
             lon, lat = feature['geometry']['coordinates']
-            folium.Marker([lat, lon], icon=folium.Icon(color='blue')).add_to(mymap)
+            folium.Marker([lat, lon], icon=folium.Icon(color='blue')).add_to(m)
     
     folium.LayerControl().add_to(m)
     st_folium(m, width=700, height=500)
