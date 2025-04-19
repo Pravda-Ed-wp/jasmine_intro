@@ -183,7 +183,7 @@ def run():
     """
     
         
-    
+    st.markdown(text)
     
 
 
