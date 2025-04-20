@@ -105,7 +105,7 @@ def music_node_show(audio,sr):
 def run():
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False
-    st.title('音乐相似度分析')
+    st.title('音-地关系分析')
     text="""
     &emsp;&emsp;在第一和二部分中，我们已经感受到《茉莉花》的不同版本之间存在一定的差异。然而，是什么因素导致了这样的差异呢？可能大家第一时间想到的，就会是不同地区的自然环境，以及这一因素导致生产生活方式的不同。
     这个想法究竟对不对呢？我们对此进行了一定的分析，试图找寻乐理特征的形成究竟是受到了哪些自然要素的影响。
